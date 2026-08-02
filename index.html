@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090b0a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Commander">
+  <title>Commander</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="background-mark" aria-hidden="true"></div>
+
+  <div id="loadingScreen" class="full-screen loading-screen">
+    <img src="./team-wappen.jpg" alt="" class="loading-logo">
+    <div class="spinner"></div>
+    <p>Commander wird geladen …</p>
+  </div>
+
+  <section id="authScreen" class="full-screen auth-screen hidden">
+    <div class="auth-shell">
+      <div class="auth-brand">
+        <img src="./team-wappen.jpg" alt="Airsoft Brotherhood NRW">
+        <p class="eyebrow">AIRSOFT BROTHERHOOD NRW</p>
+        <h1>Commander</h1>
+        <p class="muted">Private Team-App</p>
+      </div>
+
+      <div class="auth-card">
+        <div class="segmented">
+          <button id="showLoginBtn" class="active" type="button">Anmelden</button>
+          <button id="showRegisterBtn" type="button">Registrieren</button>
+        </div>
+
+        <form id="loginForm">
+          <label>E-Mail
+            <input id="loginEmail" type="email" autocomplete="email" required placeholder="name@beispiel.de">
+          </label>
+          <label>Passwort
+            <input id="loginPassword" type="password" autocomplete="current-password" required minlength="6">
+          </label>
+          <button class="primary wide" type="submit">Anmelden</button>
+          <button id="forgotPasswordBtn" class="link-button" type="button">Passwort vergessen</button>
+        </form>
+
+        <form id="registerForm" class="hidden">
+          <p class="form-section-title">Persönliche Daten</p>
+          <label>Name
+            <input id="registerName" required maxlength="80" placeholder="Vor- und Nachname">
+          </label>
+          <label>Callsign
+            <input id="registerCallsign" required maxlength="20" placeholder="Dein Callsign">
+          </label>
+          <label>Geburtsdatum
+            <span class="date-input-wrap"><input id="registerBirthDate" type="date" required></span>
+          </label>
+          <label>E-Mail
+            <input id="registerEmail" type="email" autocomplete="email" required>
+          </label>
+          <label>Handynummer
+            <input id="registerPhone" type="tel" autocomplete="tel" required maxlength="30" placeholder="+49 …">
+          </label>
+          <label>Wohnadresse
+            <textarea id="registerAddress" rows="3" required maxlength="250" placeholder="Straße, Hausnummer, PLZ und Ort"></textarea>
+          </label>
+
+          <p class="form-section-title">Notfallkontakt</p>
+          <label>Name des Notfallkontakts
+            <input id="registerEmergencyName" required maxlength="80">
+          </label>
+          <label>Nummer des Notfallkontakts
+            <input id="registerEmergencyPhone" type="tel" required maxlength="30">
+          </label>
+
+          <p class="form-section-title">Kleidergrößen</p>
+          <div class="two-col">
+            <label>T-Shirt-Größe
+              <input id="registerTshirtSize" required maxlength="20" placeholder="z. B. XL">
+            </label>
+            <label>Hoodie-Größe
+              <input id="registerHoodieSize" required maxlength="20" placeholder="z. B. XL">
+            </label>
+          </div>
+          <label>Kopfbedeckungsgröße
+            <input id="registerHeadwearSize" required maxlength="30" placeholder="z. B. 58 cm">
+          </label>
+
+          <p class="form-section-title">Gesundheit</p>
+          <label>Erkrankungen / wichtige medizinische Hinweise
+            <textarea id="registerMedicalNotes" rows="3" required maxlength="500" placeholder="Falls nichts vorliegt: Keine"></textarea>
+          </label>
+
+          <p class="form-section-title">Zugangsdaten</p>
+          <label>Passwort
+            <input id="registerPassword" type="password" autocomplete="new-password" required minlength="6">
+          </label>
+
+          <label class="consent-row">
+            <input id="registerRulesAccepted" type="checkbox" required>
+            <span>Ich akzeptiere die Regeln und Richtlinien des Teams und bestätige, keiner terroristischen oder rechtsextremen Gruppierung anzugehören.</span>
+          </label>
+          <label class="consent-row">
+            <input id="registerPrivacyAccepted" type="checkbox" required>
+            <span>Ich willige ein, dass diese Daten – einschließlich Notfall- und Gesundheitsangaben – ausschließlich für die interne Teamorganisation gespeichert und nur von Admins eingesehen werden.</span>
+          </label>
+
+          <button class="primary wide" type="submit">Konto erstellen</button>
+          <p class="form-note">Neue Konten müssen anschließend von einem Admin freigegeben werden.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="pendingScreen" class="full-screen pending-screen hidden">
+    <div class="pending-card">
+      <img src="./team-wappen.jpg" alt="">
+      <p class="eyebrow">KONTO ERSTELLT</p>
+      <h2>Freigabe ausstehend</h2>
+      <p>Dein Konto wurde angelegt. Ein Admin muss dich noch freischalten.</p>
+      <button id="pendingRefreshBtn" class="primary wide">Status prüfen</button>
+      <button id="pendingLogoutBtn" class="secondary wide">Abmelden</button>
+    </div>
+  </section>
+
+  <div id="appShell" class="hidden">
+    <header class="topbar">
+      <div class="brand-row">
+        <img src="./team-wappen.jpg" alt="Teamwappen">
+        <div>
+          <strong>Commander</strong>
+          <span id="headerSubtitle">Airsoft Brotherhood NRW</span>
+        </div>
+      </div>
+      <button id="profileButton" class="avatar-button" aria-label="Profil">DS</button>
+    </header>
+
+    <main>
+      <section id="dashboardView" class="view active">
+        <div class="hero">
+          <p class="eyebrow">TEAM COMMAND</p>
+          <h1 id="welcomeTitle">Willkommen.</h1>
+          <p id="welcomeSubtitle" class="muted">Deine Teamübersicht</p>
+        </div>
+
+        <article class="next-game-card">
+          <div>
+            <span class="tiny-label">NÄCHSTER SPIELTAG</span>
+            <h2 id="nextGameTitle">Noch nichts geplant</h2>
+            <p id="nextGameMeta">Ein Admin kann einen Spieltag erstellen.</p>
+          </div>
+        </article>
+
+        <div class="stats-grid admin-only hidden">
+          <article id="adminPendingStat">
+            <span>Offene Freigaben</span>
+            <strong id="pendingCount">0</strong>
+          </article>
+        </div>
+
+        <div class="section-heading">
+          <div>
+            <h2>Demnächst</h2>
+          </div>
+          <button class="text-button" data-go="games">Alle</button>
+        </div>
+        <div id="dashboardGames" class="card-stack"></div>
+      </section>
+
+      <section id="gamesView" class="view">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">OPERATIONS</p>
+            <h1>Spieltage</h1>
+          </div>
+          <button id="addGameButton" class="primary admin-only hidden">+ Spieltag</button>
+        </div>
+        <div id="gamesList" class="card-stack"></div>
+      </section>
+
+      <section id="teamView" class="view">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">ADMINISTRATION</p>
+            <h1>Team</h1>
+          </div>
+        </div>
+        <section id="participationOverview" class="admin-only hidden participation-overview">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">TEILNAHMEÜBERSICHT</p>
+              <h2>Rückmeldungen</h2>
+            </div>
+          </div>
+          <label class="game-filter-label">Spieltag auswählen
+            <select id="participationGameSelect"></select>
+          </label>
+          <div class="participation-grid">
+            <article class="participation-card attending">
+              <div class="participation-title"><span class="participation-icon">✓</span><div><strong>Nimmt teil</strong><small id="attendingCount">0 Zusagen</small></div></div>
+              <div id="attendingMembers" class="participant-list"></div>
+            </article>
+            <article class="participation-card declining">
+              <div class="participation-title"><span class="participation-icon">×</span><div><strong>Nimmt nicht teil</strong><small id="decliningCount">0 Absagen</small></div></div>
+              <div id="decliningMembers" class="participant-list"></div>
+            </article>
+          </div>
+          <article class="participation-card unanswered">
+            <div class="participation-title"><span class="participation-icon">?</span><div><strong>Noch keine Rückmeldung</strong><small id="unansweredCount">0 offen</small></div></div>
+            <div id="unansweredMembers" class="participant-list"></div>
+          </article>
+        </section>
+
+        <div id="pendingMembersSection" class="admin-only hidden">
+          <div class="section-heading compact">
+            <h2>Freigaben</h2>
+          </div>
+          <div id="pendingMembersList" class="card-stack"></div>
+        </div>
+        <div class="section-heading compact">
+          <h2>Mitglieder</h2>
+        </div>
+        <div id="membersList" class="card-stack"></div>
+      </section>
+
+      <section id="profileView" class="view">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">ACCOUNT</p>
+            <h1>Mein Profil</h1>
+          </div>
+        </div>
+        <article class="profile-card">
+          <div id="profileAvatar" class="profile-avatar">DS</div>
+          <h2 id="profileCallsign">Darkside</h2>
+          <p id="profileName" class="muted"></p>
+          <div class="profile-facts profile-facts-one">
+            <div><span>Position</span><strong id="profilePosition">Member</strong></div>
+          </div>
+        </article>
+        <button id="installButton" class="secondary wide hidden">App installieren</button>
+        <button id="logoutButton" class="danger wide">Abmelden</button>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <button data-view="dashboard" class="active">
+        <span>⌂</span><small>Start</small>
+      </button>
+      <button data-view="games">
+        <span>◫</span><small>Spieltage</small>
+      </button>
+      <button data-view="team" id="teamNavButton" class="admin-only hidden">
+        <span>♟</span><small>Team</small>
+      </button>
+      <button data-view="profile">
+        <span>●</span><small>Profil</small>
+      </button>
+    </nav>
+  </div>
+
+  <div id="gameModal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2 id="gameModalTitle">Spieltag erstellen</h2>
+        <button data-close-modal="gameModal">×</button>
+      </div>
+      <form id="gameForm">
+        <input id="gameId" type="hidden">
+        <label>Titel<input id="gameTitleInput" required maxlength="80"></label>
+        <div class="two-col">
+          <label>Datum<input id="gameDateInput" type="date" required></label>
+          <label>Uhrzeit<input id="gameTimeInput" type="time" required></label>
+        </div>
+        <label>Ort<input id="gameLocationInput" required maxlength="100"></label>
+        <label>Beschreibung<textarea id="gameDescriptionInput" rows="4" maxlength="500"></textarea></label>
+        <label>Website-Link
+          <input id="gameWebsiteInput" type="url" maxlength="500" inputmode="url" autocomplete="url" placeholder="https://www.beispiel.de">
+          <small class="field-hint">Optional – es sind nur vollständige Links mit https:// oder http:// möglich.</small>
+        </label>
+        <div class="modal-actions">
+          <button type="button" class="secondary" data-close-modal="gameModal">Abbrechen</button>
+          <button type="submit" class="primary">Speichern</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="memberModal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2>Mitglied bearbeiten</h2>
+        <button data-close-modal="memberModal">×</button>
+      </div>
+      <form id="memberForm">
+        <input id="memberUserId" type="hidden">
+        <label>Position
+          <select id="memberPositionInput">
+            <option>Rekrut</option>
+            <option>Member</option>
+            <option>Member 1</option>
+            <option>Member 2</option>
+            <option>Squad Leader</option>
+            <option>Team Leader</option>
+          </select>
+        </label>
+        <label>Rechte
+          <select id="memberRoleInput">
+            <option value="member">Mitglied</option>
+            <option value="admin">Admin</option>
+          </select>
+        </label>
+        <div class="modal-actions">
+          <button type="button" class="secondary" data-close-modal="memberModal">Abbrechen</button>
+          <button type="submit" class="primary">Speichern</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <div id="memberDetailsModal" class="modal hidden">
+    <div class="modal-card member-details-modal">
+      <div class="modal-head">
+        <div>
+          <p class="eyebrow">VERTRAULICHE MITGLIEDSAKTE</p>
+          <h2 id="memberDetailsTitle">Mitgliedsdaten</h2>
+        </div>
+        <button data-close-modal="memberDetailsModal">×</button>
+      </div>
+      <div id="memberDetailsContent" class="member-details-grid"></div>
+      <button id="editPrivateDataButton" class="primary wide developer-only hidden" type="button">Daten bearbeiten</button>
+      <p class="sensitive-note">Diese Daten sind ausschließlich für Admins sichtbar und dürfen nicht weitergegeben werden. Bearbeiten dürfen sie nur Developer.</p>
+    </div>
+  </div>
+
+
+  <div id="privateDataModal" class="modal hidden">
+    <div class="modal-card member-details-modal">
+      <div class="modal-head">
+        <div>
+          <p class="eyebrow">NUR FÜR DEVELOPER</p>
+          <h2>Mitgliedsdaten bearbeiten</h2>
+        </div>
+        <button data-close-modal="privateDataModal">×</button>
+      </div>
+
+      <form id="privateDataForm">
+        <input id="privateDataUserId" type="hidden">
+
+        <p class="form-section-title">Persönliche Daten</p>
+        <label>Name
+          <input id="privateName" required maxlength="80">
+        </label>
+        <label>Callsign
+          <input id="privateCallsign" required maxlength="20">
+        </label>
+        <label>Geburtsdatum
+          <span class="date-input-wrap"><input id="privateBirthDate" type="date" required></span>
+        </label>
+        <label>E-Mail
+          <input id="privateEmail" type="email" readonly>
+        </label>
+        <label>Handynummer
+          <input id="privatePhone" type="tel" required maxlength="30">
+        </label>
+        <label>Wohnadresse
+          <textarea id="privateAddress" rows="3" required maxlength="250"></textarea>
+        </label>
+
+        <p class="form-section-title">Notfallkontakt</p>
+        <label>Name des Notfallkontakts
+          <input id="privateEmergencyName" required maxlength="80">
+        </label>
+        <label>Nummer des Notfallkontakts
+          <input id="privateEmergencyPhone" type="tel" required maxlength="30">
+        </label>
+
+        <p class="form-section-title">Kleidergrößen</p>
+        <div class="two-col">
+          <label>T-Shirt-Größe
+            <input id="privateTshirtSize" required maxlength="20">
+          </label>
+          <label>Hoodie-Größe
+            <input id="privateHoodieSize" required maxlength="20">
+          </label>
+        </div>
+        <label>Kopfbedeckungsgröße
+          <input id="privateHeadwearSize" required maxlength="30">
+        </label>
+
+        <p class="form-section-title">Gesundheit</p>
+        <label>Erkrankungen / wichtige medizinische Hinweise
+          <textarea id="privateMedicalNotes" rows="4" required maxlength="500"></textarea>
+        </label>
+
+        <div class="modal-actions">
+          <button type="button" class="secondary" data-close-modal="privateDataModal">Abbrechen</button>
+          <button type="submit" class="primary">Speichern</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
