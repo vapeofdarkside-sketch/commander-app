@@ -1,0 +1,119 @@
+COMMANDER – START HIER
+
+WICHTIG:
+Die App ist bereits mit deinem Supabase-Projekt verbunden.
+Der eingetragene Publishable Key ist für Browser-Apps vorgesehen.
+Keinen Secret-Key und keinen service_role-Key in die App eintragen.
+
+SCHRITT 1 – DATENBANK EINRICHTEN
+1. Öffne dein Commander-Projekt bei Supabase.
+2. Öffne links den SQL Editor.
+3. Öffne in diesem Ordner die Datei:
+   supabase-setup.sql
+4. Kopiere den kompletten Inhalt in den SQL Editor.
+5. Drücke auf RUN.
+6. Es sollte anschließend kein roter Fehler angezeigt werden.
+
+SCHRITT 2 – APP BEI NETLIFY HOCHLADEN
+1. Diesen ZIP-Ordner zuerst entpacken.
+2. Bei Netlify deinen bisherigen Deploy öffnen.
+3. Den entpackten Ordner bzw. alle enthaltenen Dateien hochladen.
+4. Wichtig: index.html muss direkt im hochgeladenen Hauptordner liegen.
+
+SCHRITT 3 – SUPABASE URL EINTRAGEN
+Nachdem Netlify die App veröffentlicht hat:
+1. Kopiere deinen vollständigen Netlify-Link.
+2. Öffne Supabase:
+   Authentication → URL Configuration
+3. Trage bei Site URL deinen Netlify-Link ein.
+4. Füge bei Redirect URLs ebenfalls den Netlify-Link ein.
+   Am besten zusätzlich: https://DEINE-SEITE.netlify.app/**
+
+SCHRITT 4 – ERSTES ADMIN-KONTO
+1. Öffne die App.
+2. Registriere dich mit:
+   vapeofdarkside@gmail.com
+3. Wähle selbst ein Passwort.
+4. Bestätige gegebenenfalls die E-Mail von Supabase.
+5. Dieses Konto wird automatisch als Admin und Team Leader freigeschaltet.
+
+MITGLIEDER
+- Registrieren sich mit eigener E-Mail und eigenem Passwort.
+- Neue Mitglieder bleiben zunächst auf „Freigabe ausstehend“.
+- Du siehst sie unter Team → Freigaben.
+- Mitglieder können nur Ja/Nein abstimmen und ihre eigenen Skillpoints sehen.
+- Nur Admins können Spieltage, Mitglieder, Rollen und Skillpoints bearbeiten.
+
+IPHONE
+Safari → Teilen → Zum Home-Bildschirm.
+
+
+UPDATE V2
+- Fehler behoben: Supabase-Daten wurden vom Service Worker zwischengespeichert.
+- Neue Spieltage, Änderungen und Abstimmungen werden jetzt immer frisch geladen.
+
+
+UPDATE V3
+- Teilnahmeübersicht pro Spieltag mit Zusagen, Absagen und offenen Rückmeldungen.
+
+
+UPDATE V5 – DEVELOPER
+1. Zuerst SUPABASE-UPDATE-V5-DEVELOPER.sql im Supabase SQL Editor ausführen.
+2. Danach diese App-Version bei Netlify hochladen.
+3. Developer: vapeofdarkside@gmail.com und missvannigrill@gmail.com.
+4. Beide Konten sind vor normalen Admins geschützt und erhalten den Ultra-Rare-Developer-Patch unabhängig von Skillpoints.
+
+
+UPDATE V6 CLEAN
+- Patchbook vollständig aus der Oberfläche entfernt.
+- Skillpoints vollständig aus der Oberfläche und Bearbeitung entfernt.
+- Developer-/Admin-System bleibt unverändert bestehen.
+- Keine neue SQL-Abfrage erforderlich.
+
+
+UPDATE V6.1
+- 'Deine Teamübersicht' wurde durch 'Spieltage' ersetzt.
+- Das doppelte Wort 'Spieltage' über 'Demnächst' wurde entfernt.
+- Im Profil wird die Rolle nicht mehr angezeigt.
+- Admins können normale Mitglieder vollständig löschen.
+- Developer bleiben geschützt.
+- SUPABASE-UPDATE-V6-1-DELETE-MEMBER.sql einmal in Supabase ausführen.
+
+
+UPDATE V6.2 – MITGLIEDSAKTEN
+- Registrierung enthält persönliche Daten, Notfallkontakt, Größen und medizinische Hinweise.
+- Alle Felder sind bei der Registrierung verpflichtend; bei Erkrankungen kann 'Keine' eingetragen werden.
+- Nur Admins sehen in der Teamansicht den Button 'Daten'.
+- Admin-Bearbeitung enthält nur noch Position und Rechte.
+- SUPABASE-UPDATE-V6-2-MEMBER-RECORDS.sql einmal in Supabase ausführen.
+- Danach die ZIP bei Netlify hochladen.
+
+
+UPDATE V6.3
+- Der Button 'Daten' erscheint auch bei Developer-Profilen.
+- Alle Admins dürfen Mitgliedsdaten ansehen.
+- Nur Developer dürfen persönliche Daten bearbeiten oder nachtragen.
+- Normale Admins können weiterhin nur Position und Rechte ändern.
+- E-Mail bleibt im Dateneditor schreibgeschützt, da sie zum Login gehört.
+- SUPABASE-UPDATE-V6-3-DEVELOPER-DATA-EDIT.sql einmal in Supabase ausführen.
+
+
+UPDATE V6.3.1
+- Eintrittsdatum aus Registrierung entfernt.
+- Eintrittsdatum aus Admin-Datenansicht entfernt.
+- Eintrittsdatum aus Developer-Dateneditor entfernt.
+- SUPABASE-UPDATE-V6-3-1-NO-ENTRY-DATE.sql einmal in Supabase ausführen.
+
+
+UPDATE V6.3.2
+- Registrierungsseite auf iPhone, iPad und Android vollständig scrollbar.
+- Alle Felder und der Button 'Konto erstellen' sind erreichbar.
+- Keine SQL-Änderung erforderlich.
+
+
+UPDATE V6.4 – AIRSOFTBROTHERHOODNRW
+- App sichtbar und als PWA von Commander auf AirsoftbrotherhoodNRW umbenannt.
+- Android/Chromium: Installationshinweis mit echtem Installationsdialog.
+- iPhone/iPad: einmalige Safari-Anleitung zum Hinzufügen auf den Home-Bildschirm.
+- Profil: manueller Button 'Zum Homescreen hinzufügen'.
+- Keine Supabase-/SQL-Änderung erforderlich.
