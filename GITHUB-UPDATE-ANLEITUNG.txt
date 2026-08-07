@@ -1,0 +1,35 @@
+AIRSOFTBROTHERHOODNRW v6.5
+
+WICHTIG:
+Dieses Paket basiert direkt auf den Dateien aus dem Hauptverzeichnis
+deines GitHub-Repositories. Die doppelten Versionsordner wurden NICHT
+übernommen.
+
+SO AKTUALISIERST DU GITHUB:
+
+1. ZIP entpacken.
+2. Repository öffnen:
+   https://github.com/vapeofdarkside-sketch/commander-app
+3. Add file -> Upload files.
+4. Alle Dateien aus diesem Ordner hochladen.
+5. Wenn GitHub meldet, dass Dateien bereits existieren, ist das richtig.
+6. Commit message:
+   AirsoftbrotherhoodNRW v6.5
+7. Commit changes anklicken.
+8. Cloudflare deployed automatisch.
+
+ACHTUNG:
+Die alten Ordner
+- Airsoftbrootherhood app
+- airsoftbrotherhoodnrw-v6-4-1
+solltest du anschließend im GitHub-Repository löschen.
+Sie sind nicht mehr erforderlich und verursachen nur Verwirrung.
+
+PRÜFUNG:
+Öffne https://commander-app.pages.dev
+Im Profil muss unten stehen:
+AirsoftbrotherhoodNRW · v6.5
+
+Wenn dort v6.5 steht, ist garantiert die richtige Version online.
+
+KEIN SQL-UPDATE ERFORDERLICH.

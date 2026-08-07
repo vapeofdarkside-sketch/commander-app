@@ -1,8 +1,8 @@
 {
-  "name": "Commander – Airsoft Brotherhood NRW",
-  "short_name": "Commander",
-  "description": "Private Team-App für Airsoft Brotherhood NRW",
-  "start_url": "./",
+  "name": "AirsoftbrotherhoodNRW",
+  "short_name": "AirsoftbrotherhoodNRW",
+  "description": "Private Team-App der Airsoft Brotherhood NRW",
+  "start_url": "./?v=650",
   "scope": "./",
   "display": "standalone",
   "background_color": "#090b0a",
@@ -18,5 +18,6 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "id": "./"
 }

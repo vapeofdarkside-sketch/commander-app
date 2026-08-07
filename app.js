@@ -410,7 +410,7 @@ async function deleteMember(userId) {
   }
 
   const label = member.callsign || member.name || "dieses Mitglied";
-  if (!confirm(`${label} wirklich vollständig aus Commander löschen?\n\nDas Benutzerkonto, Profil und alle Abstimmungen werden dauerhaft entfernt.`)) {
+  if (!confirm(`${label} wirklich vollständig aus AirsoftbrotherhoodNRW löschen?\n\nDas Benutzerkonto, Profil und alle Abstimmungen werden dauerhaft entfernt.`)) {
     return;
   }
 
@@ -773,7 +773,12 @@ $("#editPrivateDataButton").addEventListener("click", () => {
 $("#participationGameSelect").addEventListener("change", updateParticipationLists);
 
 $$("[data-close-modal]").forEach(btn => {
-  btn.addEventListener("click", () => closeModal(btn.dataset.closeModal));
+  btn.addEventListener("click", () => {
+    if (btn.dataset.closeModal === "installHelpModal") {
+      localStorage.setItem("airsoftbrotherhoodnrw-install-help-v65", "1");
+    }
+    closeModal(btn.dataset.closeModal);
+  });
 });
 $$(".modal").forEach(modal => {
   modal.addEventListener("click", event => {
@@ -813,22 +818,88 @@ document.addEventListener("click", event => {
   if (deleteMemberButton) deleteMember(deleteMemberButton.dataset.deleteMember);
 });
 
-window.addEventListener("beforeinstallprompt", event => {
-  event.preventDefault();
-  state.deferredPrompt = event;
-  $("#installButton").classList.remove("hidden");
-});
-$("#installButton").addEventListener("click", async () => {
-  if (!state.deferredPrompt) return;
+
+function isStandaloneMode() {
+  return window.matchMedia("(display-mode: standalone)").matches
+    || window.navigator.standalone === true;
+}
+
+function isIOSDevice() {
+  return /iphone|ipad|ipod/i.test(navigator.userAgent)
+    || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+}
+
+function showInstallHelp(force = false) {
+  if (isStandaloneMode()) return;
+
+  const dismissed = localStorage.getItem("airsoftbrotherhoodnrw-install-help-v65") === "1";
+  if (!force && dismissed) return;
+
+  $("#androidInstallHelp").classList.add("hidden");
+  $("#iosInstallHelp").classList.add("hidden");
+  $("#genericInstallHelp").classList.add("hidden");
+
+  if (isIOSDevice()) {
+    $("#iosInstallHelp").classList.remove("hidden");
+  } else if (state.deferredPrompt) {
+    $("#androidInstallHelp").classList.remove("hidden");
+  } else {
+    $("#genericInstallHelp").classList.remove("hidden");
+  }
+
+  openModal("installHelpModal");
+}
+
+function dismissInstallHelp() {
+  localStorage.setItem("airsoftbrotherhoodnrw-install-help-v65", "1");
+  closeModal("installHelpModal");
+}
+
+async function triggerNativeInstall() {
+  if (!state.deferredPrompt) {
+    showInstallHelp(true);
+    return;
+  }
+
   state.deferredPrompt.prompt();
   await state.deferredPrompt.userChoice;
   state.deferredPrompt = null;
   $("#installButton").classList.add("hidden");
+  closeModal("installHelpModal");
+}
+
+window.addEventListener("beforeinstallprompt", event => {
+  event.preventDefault();
+  state.deferredPrompt = event;
+  $("#installButton").classList.remove("hidden");
+
+  if (!$("#installHelpModal").classList.contains("hidden")) {
+    showInstallHelp(true);
+  }
+});
+
+$("#installButton").addEventListener("click", () => showInstallHelp(true));
+$("#installNowButton").addEventListener("click", triggerNativeInstall);
+$("#androidInstallLaterButton").addEventListener("click", dismissInstallHelp);
+$("#iosInstallUnderstoodButton").addEventListener("click", dismissInstallHelp);
+$("#genericInstallUnderstoodButton").addEventListener("click", dismissInstallHelp);
+
+window.addEventListener("appinstalled", () => {
+  state.deferredPrompt = null;
+  localStorage.setItem("airsoftbrotherhoodnrw-install-help-v65", "1");
+  $("#installButton").classList.add("hidden");
+  closeModal("installHelpModal");
+});
+
+window.addEventListener("load", () => {
+  if (!isStandaloneMode()) {
+    window.setTimeout(() => showInstallHelp(false), 1000);
+  }
 });
 
 
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js"));
+  window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js?v=650", { updateViaCache: "none" }));
 }
 
 initialize();

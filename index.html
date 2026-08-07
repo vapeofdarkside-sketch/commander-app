@@ -6,11 +6,11 @@
   <meta name="theme-color" content="#090b0a">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Commander">
-  <title>Commander</title>
-  <link rel="manifest" href="./manifest.webmanifest">
+  <meta name="apple-mobile-web-app-title" content="AirsoftbrotherhoodNRW">
+  <title>AirsoftbrotherhoodNRW</title>
+  <link rel="manifest" href="./manifest.webmanifest?v=650">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./styles.css?v=650">
 </head>
 <body>
   <div class="background-mark" aria-hidden="true"></div>
@@ -18,7 +18,7 @@
   <div id="loadingScreen" class="full-screen loading-screen">
     <img src="./team-wappen.jpg" alt="" class="loading-logo">
     <div class="spinner"></div>
-    <p>Commander wird geladen …</p>
+    <p>AirsoftbrotherhoodNRW wird geladen …</p>
   </div>
 
   <section id="authScreen" class="full-screen auth-screen hidden">
@@ -26,7 +26,7 @@
       <div class="auth-brand">
         <img src="./team-wappen.jpg" alt="Airsoft Brotherhood NRW">
         <p class="eyebrow">AIRSOFT BROTHERHOOD NRW</p>
-        <h1>Commander</h1>
+        <h1>AirsoftbrotherhoodNRW</h1>
         <p class="muted">Private Team-App</p>
       </div>
 
@@ -131,7 +131,7 @@
       <div class="brand-row">
         <img src="./team-wappen.jpg" alt="Teamwappen">
         <div>
-          <strong>Commander</strong>
+          <strong>AirsoftbrotherhoodNRW</strong>
           <span id="headerSubtitle">Airsoft Brotherhood NRW</span>
         </div>
       </div>
@@ -241,8 +241,9 @@
             <div><span>Position</span><strong id="profilePosition">Member</strong></div>
           </div>
         </article>
-        <button id="installButton" class="secondary wide hidden">App installieren</button>
+        <button id="installButton" class="secondary wide hidden">Zum Homescreen hinzufügen</button>
         <button id="logoutButton" class="danger wide">Abmelden</button>
+        <div id="appVersionLabel" class="app-version-label">AirsoftbrotherhoodNRW · v6.5</div>
       </section>
     </main>
 
@@ -405,7 +406,42 @@
     </div>
   </div>
 
+
+  <div id="installHelpModal" class="modal hidden">
+    <div class="modal-card install-help-card">
+      <div class="modal-head">
+        <div>
+          <p class="eyebrow">APP AUF DEM HOMESCREEN</p>
+          <h2>AirsoftbrotherhoodNRW installieren</h2>
+        </div>
+        <button data-close-modal="installHelpModal">×</button>
+      </div>
+
+      <div id="androidInstallHelp" class="install-platform hidden">
+        <p>Du kannst AirsoftbrotherhoodNRW wie eine normale App auf deinem Homescreen installieren.</p>
+        <button id="installNowButton" class="primary wide" type="button">App installieren</button>
+        <button id="androidInstallLaterButton" class="secondary wide" type="button">Später</button>
+      </div>
+
+      <div id="iosInstallHelp" class="install-platform hidden">
+        <p>Auf iPhone und iPad muss die App über Safari zum Home-Bildschirm hinzugefügt werden.</p>
+        <div class="ios-install-steps">
+          <div><strong>1</strong><span>Öffne die Seite in <b>Safari</b>.</span></div>
+          <div><strong>2</strong><span>Tippe auf <b>Teilen</b> ⎋.</span></div>
+          <div><strong>3</strong><span>Wähle <b>„Zum Home-Bildschirm“</b>.</span></div>
+          <div><strong>4</strong><span>Tippe auf <b>„Hinzufügen“</b>.</span></div>
+        </div>
+        <button id="iosInstallUnderstoodButton" class="primary wide" type="button">Verstanden</button>
+      </div>
+
+      <div id="genericInstallHelp" class="install-platform hidden">
+        <p>Öffne das Browser-Menü und wähle „App installieren“ oder „Zum Startbildschirm hinzufügen“.</p>
+        <button id="genericInstallUnderstoodButton" class="primary wide" type="button">Verstanden</button>
+      </div>
+    </div>
+  </div>
+
   <div id="toast" class="toast" role="status"></div>
-  <script type="module" src="./app.js"></script>
+  <script type="module" src="./app.js?v=650"></script>
 </body>
 </html>

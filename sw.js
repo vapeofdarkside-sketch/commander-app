@@ -1,12 +1,12 @@
 
-const CACHE = "commander-v6-3-2-scroll-fix";
+const CACHE = "airsoftbrotherhoodnrw-v6-5";
 const STATIC_FILES = [
   "./",
   "./index.html",
-  "./styles.css",
-  "./app.js",
+  "./styles.css?v=650",
+  "./app.js?v=650",
   "./config.js",
-  "./manifest.webmanifest",
+  "./manifest.webmanifest?v=650",
   "./team-wappen.jpg",
   "./icon-192.png",
   "./icon-512.png",

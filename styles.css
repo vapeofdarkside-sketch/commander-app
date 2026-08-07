@@ -417,3 +417,67 @@ main{width:min(100% - 24px,900px);margin:auto}
     padding-right:16px;
   }
 }
+
+
+/* V6.5 – AirsoftbrotherhoodNRW / Installationshilfe */
+.auth-brand h1{
+  overflow-wrap:anywhere;
+  line-height:.96;
+}
+.brand-row strong{
+  display:block;
+  max-width:min(62vw,340px);
+  overflow-wrap:anywhere;
+  line-height:1.08;
+}
+.install-help-card{
+  max-width:440px;
+}
+.install-platform p{
+  margin:4px 0 18px;
+  color:var(--muted);
+  line-height:1.55;
+}
+.ios-install-steps{
+  display:grid;
+  gap:10px;
+  margin:14px 0 20px;
+}
+.ios-install-steps > div{
+  display:grid;
+  grid-template-columns:34px 1fr;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:13px;
+  background:#0c0e0c;
+}
+.ios-install-steps strong{
+  display:grid;
+  place-items:center;
+  width:30px;
+  height:30px;
+  border-radius:999px;
+  background:rgba(229,109,39,.16);
+  color:var(--orange);
+}
+.ios-install-steps span{
+  line-height:1.4;
+}
+.app-version-label{
+  margin-top:14px;
+  text-align:center;
+  color:var(--muted);
+  opacity:.55;
+  font-size:10px;
+  letter-spacing:.04em;
+}
+@media(max-width:430px){
+  .auth-brand h1{
+    font-size:clamp(36px,10.5vw,52px);
+  }
+  .brand-row strong{
+    font-size:16px;
+  }
+}
