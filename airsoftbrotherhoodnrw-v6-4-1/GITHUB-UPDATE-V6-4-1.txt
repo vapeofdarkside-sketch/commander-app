@@ -1,0 +1,20 @@
+AIRSOFTBROTHERHOODNRW V6.4.1
+
+1. ZIP entpacken.
+2. GitHub öffnen:
+   https://github.com/vapeofdarkside-sketch/commander-app
+3. Add file -> Upload files.
+4. ALLE Dateien aus diesem Ordner hochladen und vorhandene Dateien ersetzen.
+5. Commit message:
+   AirsoftbrotherhoodNRW V6.4.1
+6. Commit changes.
+7. Cloudflare deployed automatisch.
+
+Danach auf dem Handy:
+- die Seite commander-app.pages.dev neu öffnen.
+- unten sollte v6.4.1 stehen.
+- beim ersten Aufruf erscheint die Homescreen-Hilfe.
+- iPhone: Safari -> Teilen -> Zum Home-Bildschirm.
+- Android/Chrome: wenn vom Browser unterstützt, erscheint "App installieren".
+
+KEIN SQL-UPDATE ERFORDERLICH.
